@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,6 +50,22 @@ fun DateCol() {
 @Composable
 fun WhispersCol() {
     Column {
+//        Text(text = "Whispers will be here")
+        WhisperCard()
+        WhisperCard()
+        WhisperCard()
+    }
+}
+
+@Composable
+fun WhisperCard() {
+    Card (
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp)
+            .padding(10.dp)
+//            .fillMaxHeight(0.1f)
+    ) {
         Text(text = "Whispers will be here")
     }
 }
@@ -58,3 +76,4 @@ fun WhispersCol() {
 //        Text(text = "Bottom Nav here")
 //    }
 //}
+
