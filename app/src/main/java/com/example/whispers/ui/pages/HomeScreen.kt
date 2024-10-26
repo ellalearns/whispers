@@ -25,7 +25,6 @@ fun HomeScreen() {
         Column(
             modifier = Modifier
                 .padding(40.dp)
-                .background(Color.Blue)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -38,7 +37,10 @@ fun HomeScreen() {
 
 @Composable
 fun DateCol() {
-    Column {
+    Column (
+        modifier = Modifier
+            .padding(bottom = 20.dp)
+    ) {
         Text(text = "26/10/2024")
     }
 }
