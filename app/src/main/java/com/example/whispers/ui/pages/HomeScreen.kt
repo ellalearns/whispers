@@ -132,7 +132,7 @@ fun BottomNav(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.Green)
+            .background(Color.Gray)
             .padding(10.dp)
     ) {
         items.forEachIndexed {index, item ->
