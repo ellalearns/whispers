@@ -15,30 +15,38 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
 
-fun createDumbWhispers(): List<dumbWhispers> {
-    val dumbWhispers = mutableListOf<dumbWhispers>()
-    for (i in 1..20) {
-        dumbWhispers.add(dumbWhispers())
-    }
-    return dumbWhispers
+val whisperList = mutableStateListOf<dumbWhispers>()
+
+fun addWhisper(whisper: dumbWhispers) {
+    whisperList.add(whisper)
 }
 
 @Composable
 fun HomeScreen() {
+
+    var showDialog by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -59,8 +67,27 @@ fun HomeScreen() {
                 BottomMenuContent("User", R.drawable.ic_launcher_foreground),
                 BottomMenuContent("Add", R.drawable.ic_launcher_foreground)
             ),
-            modifier = Modifier.align(Alignment.BottomCenter)
+            modifier = Modifier.align(Alignment.BottomCenter),
+            onShowDialogChange = { show ->
+                showDialog = show
+            }
         )
+
+        if (showDialog) {
+            AddWhisperDialog(
+                onDismiss = {
+                    showDialog = false
+                },
+                onAddNote = {newWhisper ->
+                    whisperList.add(dumbWhispers(
+                        text = newWhisper.text,
+                        createdBy = newWhisper.createdBy
+                    ))
+                    showDialog = false
+                }
+            )
+        }
+
     }
 }
 
@@ -80,11 +107,10 @@ fun DateCol() {
 
 @Composable
 fun WhispersCol() {
-    val dumbWhispers = createDumbWhispers()
 
     LazyColumn {
-        itemsIndexed (dumbWhispers) {index, item ->
-            WhisperCard(text = item.text, createdAt = item.createdBy, aiSummary = item.aiSummary)
+        itemsIndexed (whisperList) {index, item ->
+            WhisperCard(text = item.text, createdAt = item.createdBy)
         }
     }
 }
@@ -93,7 +119,6 @@ fun WhispersCol() {
 fun WhisperCard(
     text: String,
     createdAt: String,
-    aiSummary: String,
 ) {
 
     Card (
@@ -106,17 +131,21 @@ fun WhisperCard(
     ) {
         Column (
             modifier = Modifier
-                .padding(10.dp)
+                .padding(15.dp)
+                .fillMaxWidth()
         ) {
             Text(text = text)
 
             Row (
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxWidth()
+//                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = aiSummary)
-                Text(text = createdAt)
+                Text(
+                    text = createdAt,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
@@ -126,6 +155,7 @@ fun WhisperCard(
 fun BottomNav(
     items: List<BottomMenuContent>,
     modifier: Modifier = Modifier,
+    onShowDialogChange: (Boolean) -> Unit
 ) {
     Row (
         horizontalArrangement = Arrangement.SpaceAround,
@@ -137,7 +167,9 @@ fun BottomNav(
     ) {
         items.forEachIndexed {index, item ->
             BottomMenuItem(item = item) {
-                
+                if (item.title == "Add") {
+                    onShowDialogChange(true)
+                }
             }
         }
     }
@@ -149,6 +181,7 @@ fun BottomMenuItem(
     item: BottomMenuContent,
     onItemClick: () -> Unit
 ) {
+
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
