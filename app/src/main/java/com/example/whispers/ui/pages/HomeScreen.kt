@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
@@ -130,16 +131,21 @@ fun WhisperCard(
     ) {
         Column (
             modifier = Modifier
-                .padding(10.dp)
+                .padding(15.dp)
+                .fillMaxWidth()
         ) {
             Text(text = text)
 
             Row (
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxWidth()
+//                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = createdAt)
+                Text(
+                    text = createdAt,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
