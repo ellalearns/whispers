@@ -85,13 +85,10 @@ fun DateCol() {
 }
 
 @Composable
-fun WhispersCol() {
-//    val dumbWhispers = createDumbWhispers()
-
-    val dumbWhispers = listOf<dumbWhispers>()
+fun WhispersCol(whisperList: MutableList<dumbWhispers>) {
 
     LazyColumn {
-        itemsIndexed (dumbWhispers) {index, item ->
+        itemsIndexed (whisperList) {index, item ->
             WhisperCard(text = item.text, createdAt = item.createdBy, aiSummary = item.aiSummary)
         }
     }
