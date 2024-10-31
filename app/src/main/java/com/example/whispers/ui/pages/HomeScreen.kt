@@ -37,6 +37,12 @@ fun createDumbWhispers(): List<dumbWhispers> {
     return dumbWhispers
 }
 
+val whisperList = mutableListOf<dumbWhispers>()
+
+fun addWhisper(whisper: dumbWhispers) {
+    whisperList.add(whisper)
+}
+
 @Composable
 fun HomeScreen() {
 
@@ -80,7 +86,9 @@ fun DateCol() {
 
 @Composable
 fun WhispersCol() {
-    val dumbWhispers = createDumbWhispers()
+//    val dumbWhispers = createDumbWhispers()
+
+    val dumbWhispers = listOf<dumbWhispers>()
 
     LazyColumn {
         itemsIndexed (dumbWhispers) {index, item ->
