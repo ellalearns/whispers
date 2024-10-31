@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
+import java.time.LocalDate
 
 val whisperList = mutableStateListOf<dumbWhispers>()
 
@@ -99,10 +100,10 @@ fun DateCol() {
         modifier = Modifier
             .padding(bottom = 20.dp)
             .clickable { }
-            .border(1.dp, color = Color.Cyan)
+            .border(1.dp, color = Color(0X50B8FFC8))
     ) {
         Text(
-            text = "26/10/2024",
+            text = LocalDate.now().toString(),
         )
     }
 }
