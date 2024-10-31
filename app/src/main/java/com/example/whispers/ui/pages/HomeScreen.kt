@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
+import java.time.LocalDate
 
 val whisperList = mutableStateListOf<dumbWhispers>()
 
@@ -50,13 +52,14 @@ fun HomeScreen() {
 
     Box(
         modifier = Modifier
-            .background(Color.LightGray)
+            .background(Color(0XFFFFFFF7))
             .fillMaxSize()
     ) {
         Column(
             modifier = Modifier
                 .padding(40.dp)
                 .fillMaxSize(),
+
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DateCol()
@@ -97,10 +100,10 @@ fun DateCol() {
         modifier = Modifier
             .padding(bottom = 20.dp)
             .clickable { }
-            .border(1.dp, color = Color.Cyan)
+            .border(1.dp, color = Color(0X50B8FFC8))
     ) {
         Text(
-            text = "26/10/2024",
+            text = LocalDate.now().toString(),
         )
     }
 }
@@ -125,12 +128,14 @@ fun WhisperCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .height(80.dp)
+            .height(70.dp)
             .clickable {
-            }
+            },
+        elevation = CardDefaults.cardElevation(0.dp)
     ) {
         Column (
             modifier = Modifier
+                .background(Color(0XFFB8FFC8))
                 .padding(15.dp)
                 .fillMaxWidth()
         ) {
@@ -162,7 +167,7 @@ fun BottomNav(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.Gray)
+            .background(Color(0X50B8FFC8))
             .padding(10.dp)
     ) {
         items.forEachIndexed {index, item ->
