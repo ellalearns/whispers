@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -86,4 +88,52 @@ fun AddWhisperDialog(
             }
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun QS_AddWhisperDialog(
+    onAdd: (dumbWhispers) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var whisper by remember {
+        mutableStateOf("")
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = "whisper") },
+        text = {
+               OutlinedTextField (
+                   value = whisper,
+                   onValueChange = {
+                       whisper = it
+                   },
+                   placeholder = {
+                       Text("whisper")
+                   }
+               )
+        },
+        confirmButton = {
+                        Button (
+                            onClick = {
+                                onAdd(
+                                    dumbWhispers(
+                                    text = whisper,
+                                    createdBy = LocalDate.now().toString()
+                                )
+                                )
+                                onDismiss()
+                            }) {
+                            Text(text = "whisper")
+                        }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text(text = "cancel")
+            }
+        }
+    )
+
 }
