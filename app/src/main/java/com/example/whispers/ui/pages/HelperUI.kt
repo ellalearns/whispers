@@ -124,6 +124,7 @@ fun QS_AddWhisperDialog(
                                     createdBy = LocalDate.now().toString()
                                 )
                                 )
+                                onDismiss()
                             }) {
                             Text(text = "whisper")
                         }
