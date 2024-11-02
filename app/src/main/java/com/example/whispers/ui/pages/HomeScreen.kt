@@ -46,9 +46,19 @@ fun addWhisper(whisper: dumbWhispers) {
 }
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(showDialog: MutableState<Boolean> = mutableStateOf(false)) {
 
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialogNow: MutableState<Boolean>
+
+    if (showDialog.value) {
+        showDialogNow = remember {
+            mutableStateOf(true)
+        }
+    } else {
+        showDialogNow = remember {
+            mutableStateOf(false)
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -72,21 +82,21 @@ fun HomeScreen() {
             ),
             modifier = Modifier.align(Alignment.BottomCenter),
             onShowDialogChange = { show ->
-                showDialog = show
+                showDialogNow.value = show
             }
         )
 
-        if (showDialog) {
+        if (showDialogNow.value) {
             AddWhisperDialog(
                 onDismiss = {
-                    showDialog = false
+                    showDialogNow.value = false
                 },
                 onAddNote = {newWhisper ->
                     whisperList.add(dumbWhispers(
                         text = newWhisper.text,
                         createdBy = newWhisper.createdBy
                     ))
-                    showDialog = false
+                    showDialogNow.value = false
                 }
             )
         }
@@ -209,4 +219,5 @@ fun BottomMenuItem(
         Text(text = item.title)
     }
 }
+
 
