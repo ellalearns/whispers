@@ -23,6 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".WhisperQSActivity"
+            android:exported="true"
+            android:label="addWhisper"
+            android:theme="@style/Theme.Whispers">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <service
             android:name=".services.WhispersQuickSettingsService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
