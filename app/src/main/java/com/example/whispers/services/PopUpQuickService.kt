@@ -20,14 +20,18 @@ class PopUpQuickService : TileService() {
     override fun onClick() {
         super.onClick()
 
-        val intent = Intent(this, PopUpActivity::class.java)
-        startActivityAndCollapse(
-            PendingIntent.getActivity(
-                this,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-        )
+//        val intent = Intent(this, PopUpActivity::class.java)
+//        startActivityAndCollapse(
+//            PendingIntent.getActivity(
+//                this,
+//                0,
+//                intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+//            )
+//        )
+
+        val overlayIntent = Intent(this, QuickWhisperOverlayService::class.java)
+        startService(overlayIntent)
+//        goHome()
     }
 }

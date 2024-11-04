@@ -53,6 +53,11 @@
             </intent-filter>
         </service>
         <service
+            android:name=".services.QuickWhisperOverlayService"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:exported="false">
+        </service>
+        <service
             android:name=".services.PopUpQuickService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true">
