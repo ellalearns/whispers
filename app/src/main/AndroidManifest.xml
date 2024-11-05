@@ -39,7 +39,8 @@
         <activity
             android:name=".PopUpActivity"
             android:exported="true"
-            android:label="quickWhisper">
+            android:label="quickWhisper"
+            android:theme="@style/Theme.TransparentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
