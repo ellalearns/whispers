@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +20,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -34,10 +37,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
 import java.time.LocalDate
+import java.time.LocalTime
 
 val whisperList = mutableStateListOf<dumbWhispers>()
 
@@ -121,9 +126,56 @@ fun DateCol() {
 @Composable
 fun WhispersCol() {
 
+    val showWhisperDetail by remember {
+        mutableStateOf(false)
+    }
+
     LazyColumn {
         itemsIndexed (whisperList) {index, item ->
-            WhisperCard(text = item.text, createdAt = item.createdBy)
+            WhisperCard (
+                text = item.text,
+                createdAt = item.createdBy,
+                onItemClick = {
+                    WhisperDetails(text = item.text, createdAt = item.createdBy, onDismiss = {
+                    })
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun WhisperDetails(
+    text: String,
+    createdAt: String,
+    onDismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = { onDismiss() }) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.White)
+                .padding(16.dp)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = text
+                )
+
+                Spacer(
+                    modifier = Modifier.height(8.dp)
+                )
+
+                Text(text = createdAt)
+
+                Spacer(
+                    modifier = Modifier.height(8.dp)
+                )
+            }
         }
     }
 }
@@ -132,6 +184,7 @@ fun WhispersCol() {
 fun WhisperCard(
     text: String,
     createdAt: String,
+    onItemClick: @Composable () -> Unit
 ) {
 
     Card (
@@ -139,8 +192,7 @@ fun WhisperCard(
             .fillMaxWidth()
             .padding(10.dp)
             .height(70.dp)
-            .clickable {
-            },
+            .clickable { onItemClick },
         elevation = CardDefaults.cardElevation(0.dp)
     ) {
         Column (

@@ -10,7 +10,7 @@ import com.example.whispers.PopUpActivity
 class PopUpQuickService : TileService() {
     override fun onTileAdded() {
         super.onTileAdded()
-        qsTile.label = "Quick Whisper"
+        qsTile.label = "Pop Up Whisper"
         qsTile.contentDescription = qsTile.label
         qsTile.updateTile()
     }

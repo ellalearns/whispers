@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.whispers.objects.dumbWhispers
 import java.time.LocalDate
+import java.time.LocalTime
 
 @Composable
 fun AddWhisperDialog(
@@ -77,7 +78,7 @@ fun AddWhisperDialog(
                             onAddNote(
                                 dumbWhispers(
                                 text = whisper,
-                                createdBy = LocalDate.now().toString()
+                                createdBy = (LocalTime.now().toString()).substring(0, 5)
                             )
                             )
                             onDismiss()
@@ -122,7 +123,7 @@ fun QS_AddWhisperDialog(
                                 onAdd(
                                     dumbWhispers(
                                     text = whisper,
-                                    createdBy = LocalDate.now().toString()
+                                    createdBy = (LocalTime.now().toString()).substring(0, 5)
                                 )
                                 )
                                 onDismiss()
