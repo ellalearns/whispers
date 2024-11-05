@@ -114,7 +114,7 @@ fun DateCol() {
             .border(1.dp, color = Color(0X50B8FFC8))
     ) {
         Text(
-            text = LocalTime.now().toString(),
+            text = LocalDate.now().toString(),
         )
     }
 }
