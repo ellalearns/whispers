@@ -34,7 +34,7 @@ class PopUpActivity : ComponentActivity() {
     private var isPermissionGranted by mutableStateOf(false)
     private var showPopUp by mutableStateOf(false)
 
-    private val overlayPermissionLauncher = registerForActivityResult(
+    val overlayPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         isPermissionGranted = Settings.canDrawOverlays(this)

@@ -30,8 +30,11 @@ class PopUpQuickService : TileService() {
 //            )
 //        )
 
-        val overlayIntent = Intent(this, QuickWhisperOverlayService::class.java)
-        startService(overlayIntent)
-//        goHome()
+//        val overlayIntent = Intent(this, QuickWhisperOverlayService::class.java)
+//        startService(overlayIntent)
+////        goHome()
+
+        val overlayIntent = Intent(this, QuickWhispersForegroundService::class.java)
+        startForegroundService(overlayIntent)
     }
 }
