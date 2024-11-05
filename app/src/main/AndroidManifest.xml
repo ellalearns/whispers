@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,6 +36,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PopUpActivity"
+            android:exported="true"
+            android:label="quickWhisper"
+            android:theme="@style/Theme.TransparentTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <service
             android:name=".services.WhispersQuickSettingsService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -40,6 +53,24 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+        </service>
+        <service
+            android:name=".services.QuickWhisperOverlayService"
+            android:permission="android.permission.SYSTEM_ALERT_WINDOW"
+            android:exported="false">
+        </service>
+        <service
+            android:name=".services.PopUpQuickService"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".services.QuickWhispersForegroundService"
+            android:foregroundServiceType="shortService"
+            android:exported="false">
         </service>
     </application>
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.Button
@@ -136,4 +137,17 @@ fun QS_AddWhisperDialog(
         }
     )
 
+}
+
+
+@Composable
+fun QuickWhisperButton(
+    onClick: () -> Unit = {}
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        modifier = Modifier.size(48.dp)
+    ) {
+        Text(text = "FABULOUS")
+    }
 }
