@@ -78,7 +78,7 @@ fun AddWhisperDialog(
                             onAddNote(
                                 dumbWhispers(
                                 text = whisper,
-                                createdBy = LocalTime.now().toString()
+                                createdBy = (LocalTime.now().toString()).substring(0, 5)
                             )
                             )
                             onDismiss()
@@ -123,7 +123,7 @@ fun QS_AddWhisperDialog(
                                 onAdd(
                                     dumbWhispers(
                                     text = whisper,
-                                    createdBy = LocalTime.now().toString()
+                                    createdBy = (LocalTime.now().toString()).substring(0, 5)
                                 )
                                 )
                                 onDismiss()
