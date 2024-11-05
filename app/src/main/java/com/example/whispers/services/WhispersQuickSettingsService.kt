@@ -11,11 +11,6 @@ class WhispersQuickSettingsService : TileService() {
     var counter = 0
     override fun onClick() {
         super.onClick()
-        counter++
-        qsTile.label = counter.toString()
-        qsTile.contentDescription = qsTile.label
-        qsTile.updateTile()
-
         val intent = Intent(this, WhisperQSActivity::class.java)
         startActivityAndCollapse(
             PendingIntent.getActivity(
@@ -29,6 +24,9 @@ class WhispersQuickSettingsService : TileService() {
 
     override fun onTileAdded() {
         super.onTileAdded()
+        qsTile.label = "Whisper in-app"
+        qsTile.contentDescription = qsTile.label
+        qsTile.updateTile()
     }
 
     override fun onTileRemoved() {
