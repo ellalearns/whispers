@@ -38,6 +38,7 @@ import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
 import java.time.LocalDate
+import java.time.LocalTime
 
 val whisperList = mutableStateListOf<dumbWhispers>()
 
@@ -113,7 +114,7 @@ fun DateCol() {
             .border(1.dp, color = Color(0X50B8FFC8))
     ) {
         Text(
-            text = LocalDate.now().toString(),
+            text = LocalTime.now().toString(),
         )
     }
 }
