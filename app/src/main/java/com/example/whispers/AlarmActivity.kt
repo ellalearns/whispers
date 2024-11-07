@@ -21,13 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.whispers.services.AlarmReceiver
 
 class AlarmActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AlarmScreen(onDismiss = { finish() })
+            AlarmScreen(onDismiss = {
+                AlarmReceiver.ringtone?.stop()
+                finishAffinity()
+            })
         }
 
         window.insetsController?.hide(WindowInsets.Type.statusBars())
