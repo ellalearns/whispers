@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -53,9 +54,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.example.whispers.objects.dumbWhispers
+import com.example.whispers.services.SharedPrefs
+import com.example.whispers.services.Utility
+import com.example.whispers.ui.theme.WhispersTheme
 import java.time.LocalDate
+import java.time.LocalTime
 import kotlin.math.roundToInt
-import com.example.whispers.ui.pages.whisperList
 import kotlin.system.exitProcess
 
 class PopUpActivity : ComponentActivity() {
@@ -79,15 +83,17 @@ class PopUpActivity : ComponentActivity() {
                 val context = LocalContext.current
                 val windowManager = context.getSystemService(Context.WINDOW_SERVICE)
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            finishAffinity()
-                            exitProcess(0)
-                        }
-                ) {
-                    AddFloatingButtonOverlay(windowManager = windowManager as WindowManager)
+                WhispersTheme {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                finishAffinity()
+                                exitProcess(0)
+                            }
+                    ) {
+                        AddFloatingButtonOverlay(windowManager = windowManager as WindowManager)
+                    }
                 }
 
 
@@ -121,6 +127,16 @@ class PopUpActivity : ComponentActivity() {
         windowManager: WindowManager
     ) {
         val context = LocalContext.current
+
+        val whisperList = remember {
+            mutableStateListOf<dumbWhispers>()
+        }
+        LaunchedEffect(Unit) {
+            val loadedWhispers = SharedPrefs().getWhispersFromPrefs(context)
+            whisperList.clear()
+            whisperList.addAll(loadedWhispers)
+        }
+
         val composeView = remember {
             ComposeView(context).apply {
                 setContent {
@@ -136,6 +152,7 @@ class PopUpActivity : ComponentActivity() {
                                     createdBy = newWhisper.createdBy
                                 )
                             )
+                            SharedPrefs().saveWhispersToPrefs(context, whisperList)
                             finishAffinity()
                             exitProcess(0)
                         }
@@ -213,7 +230,7 @@ class PopUpActivity : ComponentActivity() {
                             onClick(
                                 dumbWhispers(
                                     text = whisper,
-                                    createdBy = LocalDate.now().toString()
+                                    createdBy = (LocalTime.now().toString()).substring(0, 5)
                                 )
                             )
                             onDismiss()

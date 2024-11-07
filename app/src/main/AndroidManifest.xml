@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -46,6 +49,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:theme="@style/Theme.Whispers" />
         <service
             android:name=".services.WhispersQuickSettingsService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -72,6 +78,11 @@
             android:foregroundServiceType="shortService"
             android:exported="false">
         </service>
+        <receiver
+            android:name=".services.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
