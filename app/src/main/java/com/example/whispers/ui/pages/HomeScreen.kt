@@ -217,7 +217,8 @@ fun WhisperCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .height(70.dp)
+            .height(60.dp)
+            .clip(RoundedCornerShape(10.dp))
             .background(Color(0xFFF7D786))
             .clickable { onItemClick },
         elevation = CardDefaults.cardElevation(0.dp)
@@ -225,7 +226,7 @@ fun WhisperCard(
         Column (
             modifier = Modifier
                 .background(Color(0xFFF7D786))
-                .padding(15.dp)
+                .padding(10.dp)
                 .fillMaxWidth()
         ) {
             Text(text = text)
