@@ -14,7 +14,7 @@ class SharedPrefs {
         val gson = Gson()
         val json = gson.toJson(whisperList)
         editor.putString("whispers_key", json)
-        editor.apply()
+        editor.commit()
     }
 
     fun getWhispersFromPrefs(context: Context): List<dumbWhispers> {
