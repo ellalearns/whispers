@@ -56,6 +56,7 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.example.whispers.objects.dumbWhispers
 import com.example.whispers.services.SharedPrefs
 import com.example.whispers.services.Utility
+import com.example.whispers.ui.theme.WhispersTheme
 import java.time.LocalDate
 import java.time.LocalTime
 import kotlin.math.roundToInt
@@ -82,15 +83,17 @@ class PopUpActivity : ComponentActivity() {
                 val context = LocalContext.current
                 val windowManager = context.getSystemService(Context.WINDOW_SERVICE)
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            finishAffinity()
-                            exitProcess(0)
-                        }
-                ) {
-                    AddFloatingButtonOverlay(windowManager = windowManager as WindowManager)
+                WhispersTheme {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                finishAffinity()
+                                exitProcess(0)
+                            }
+                    ) {
+                        AddFloatingButtonOverlay(windowManager = windowManager as WindowManager)
+                    }
                 }
 
 

@@ -139,7 +139,7 @@ fun DateCol() {
         modifier = Modifier
             .padding(bottom = 20.dp)
             .clickable { }
-            .border(1.dp, color = Color(0X50B8FFC8))
+            .border(1.dp, color = Color(0xFFF7D786))
     ) {
         Text(
             text = LocalDate.now().toString(),
@@ -218,12 +218,13 @@ fun WhisperCard(
             .fillMaxWidth()
             .padding(10.dp)
             .height(70.dp)
+            .background(Color(0xFFF7D786))
             .clickable { onItemClick },
         elevation = CardDefaults.cardElevation(0.dp)
     ) {
         Column (
             modifier = Modifier
-                .background(Color(0XFFB8FFC8))
+                .background(Color(0xFFF7D786))
                 .padding(15.dp)
                 .fillMaxWidth()
         ) {
@@ -258,7 +259,7 @@ fun BottomNav(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .background(Color(0X50B8FFC8))
+            .background(Color(0xFFF7D786))
             .padding(10.dp)
     ) {
         items.forEachIndexed {index, item ->
