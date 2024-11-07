@@ -31,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -51,15 +52,12 @@ import androidx.core.content.getSystemService
 import com.example.whispers.R
 import com.example.whispers.objects.BottomMenuContent
 import com.example.whispers.objects.dumbWhispers
+import com.example.whispers.services.SharedPrefs
 import com.example.whispers.services.Utility
 import java.time.LocalDate
 import java.time.LocalTime
 
-val whisperList = mutableStateListOf<dumbWhispers>()
-
-fun addWhisper(whisper: dumbWhispers) {
-    whisperList.add(whisper)
-}
+//val whisperList = mutableStateListOf<dumbWhispers>()
 
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
@@ -67,6 +65,13 @@ fun HomeScreen(
     showDialog: MutableState<Boolean> = mutableStateOf(false),
     onFinishAffinity: () -> Unit
 ) {
+    val context = LocalContext.current
+    val whisperList = remember { mutableStateListOf<dumbWhispers>() }
+    LaunchedEffect(Unit) {
+        val loadedWhispers = SharedPrefs().getWhispersFromPrefs(context)
+        whisperList.clear()
+        whisperList.addAll(loadedWhispers)
+    }
 
     var showDialogNow: MutableState<Boolean>
 
@@ -93,7 +98,9 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DateCol()
-            WhispersCol()
+            WhispersCol(
+                whisperList
+            )
         }
         BottomNav(
             items = listOf(
@@ -117,6 +124,7 @@ fun HomeScreen(
                         text = newWhisper.text,
                         createdBy = newWhisper.createdBy
                     ))
+                    SharedPrefs().saveWhispersToPrefs(context, whisperList)
                     showDialogNow.value = false
                 }
             )
@@ -140,7 +148,9 @@ fun DateCol() {
 }
 
 @Composable
-fun WhispersCol() {
+fun WhispersCol(
+    whisperList: MutableList<dumbWhispers>
+) {
 
     val showWhisperDetail by remember {
         mutableStateOf(false)

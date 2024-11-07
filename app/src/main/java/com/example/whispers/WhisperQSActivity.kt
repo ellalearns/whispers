@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import com.example.whispers.objects.dumbWhispers
 import com.example.whispers.ui.pages.AddWhisperDialog
 import com.example.whispers.ui.pages.HomeScreen
-import com.example.whispers.ui.pages.whisperList
 
 class WhisperQSActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
