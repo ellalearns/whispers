@@ -3,7 +3,6 @@ package com.example.whispers
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi

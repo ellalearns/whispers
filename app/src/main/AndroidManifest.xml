@@ -49,6 +49,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:theme="@style/Theme.Whispers" />
         <service
             android:name=".services.WhispersQuickSettingsService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
